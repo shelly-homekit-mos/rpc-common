@@ -24,8 +24,16 @@ config_schema:
   - ["rpc.auth_file", "s", "", {title: "File with user credentials in the htdigest format"}]
   - ["rpc.auth_algo", "i", 0, {title: "Password file hashing algorithm: 0 - MD5, 1 - SHA256"}]
 
-libs:
-  - location: https://github.com/mongoose-os-libs/mongoose
+conds:
+  - when: mos.platform == "esp32"
+    libs:
+      - location: https://github.com/shelly-homekit-mos/mongoose
+  - when: mos.platform == "esp32c3"
+    libs:
+      - location: https://github.com/shelly-homekit-mos/mongoose
+  - when: mos.platform == "esp8266"
+    libs:
+      - location: https://github.com/mongoose-os-libs/mongoose
 
 # If we have HTTP or WS RPC, server needs to be initialized already.
 init_after:
